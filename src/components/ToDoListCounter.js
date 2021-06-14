@@ -1,22 +1,27 @@
-import { useObserver } from 'mobx-react';
-import React, { useContext } from 'react';
-import { StoreContext } from '../store/ToDoStore';
+import React from 'react';
+import { observer, inject } from 'mobx-react';
 
-const ToDoListCounter = () => {
-    const store = useContext(StoreContext);
+@inject('store')
+@observer
+class ToDoListCounter extends React.Component {
+    // const store = useContext(StoreContext);
 
-    return useObserver(() => {
-        if (store.itemsCount === 0) {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        if (this.props.store.itemsCount === 0) {
             return <h1>No Tasks in hand...</h1>;
         }
 
         return (
             <h1>
-                You Have {store.itemsCount}{' '}
-                {store.itemsCount > 1 ? `Tasks` : `Task`}!
+                You Have {this.props.store.itemsCount}{' '}
+                {this.props.store.itemsCount > 1 ? `Tasks` : `Task`}!
             </h1>
         );
-    });
-};
+    }
+}
 
 export default ToDoListCounter;

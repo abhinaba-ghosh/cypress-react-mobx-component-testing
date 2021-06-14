@@ -1,26 +1,32 @@
-import { useObserver } from 'mobx-react';
-import React, { useContext } from 'react';
-import { StoreContext } from '../store/ToDoStore';
+import React from 'react';
+import { observer, inject } from 'mobx-react';
 
-const ToDoList = () => {
-    const store = useContext(StoreContext);
+@inject('store')
+@observer
+class ToDoList extends React.Component {
+    // const store = useContext(StoreContext);
+    constructor(props) {
+        super(props);
+    }
 
-    return useObserver(() => (
-        <ul>
-            {store.items.map((item) => (
-                <li key={item}>
-                    {item}{' '}
-                    <button
-                        onClick={(e) => {
-                            store.deleteItem(item);
-                        }}
-                    >
-                        Mark Complete
-                    </button>
-                </li>
-            ))}
-        </ul>
-    ));
-};
+    render() {
+        return (
+            <ul>
+                {this.props.store.items.map((item) => (
+                    <li key={item}>
+                        {item}{' '}
+                        <button
+                            onClick={(e) => {
+                                this.props.store.deleteItem(item);
+                            }}
+                        >
+                            Mark Complete
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+}
 
 export default ToDoList;

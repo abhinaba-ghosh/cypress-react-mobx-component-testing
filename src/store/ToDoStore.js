@@ -1,31 +1,25 @@
-import { useLocalObservable } from 'mobx-react';
-import { createContext } from 'react';
+import { observable, action, computed, makeObservable } from 'mobx';
 
-export const StoreContext = createContext();
-
-const StoreProvider = ({ children }) => {
-    const store = useLocalObservable(() => ({
-        items: [],
-        addItem(item) {
-            store.items.push(item);
-        },
-
-        deleteItem(item) {
-            const index = store.items.indexOf(item);
-            store.items.splice(index, 1);
-        },
-        get itemsCount() {
-            return store.items.length;
-        },
-    }));
-
-    if (window.Cypress) {
-        window.store = store;
+export class ToDoStore {
+    constructor() {
+        makeObservable(this);
     }
 
-    return (
-        <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
-    );
-};
+    @observable items = [];
 
-export default StoreProvider;
+    @action
+    addItem(item) {
+        this.items.push(item);
+    }
+
+    @action
+    deleteItem(item) {
+        const index = this.items.indexOf(item);
+        this.items.splice(index, 1);
+    }
+
+    @computed
+    get itemsCount() {
+        return this.items.length;
+    }
+}
