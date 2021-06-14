@@ -3,7 +3,11 @@
 -   Run Tests
 
 ```js
-npx cypress open-ct
+// test in cypress cli
+npm run test
+
+// test in cypress open mode
+npm run test:dev
 ```
 
 ## keep watching this space, more will come!
