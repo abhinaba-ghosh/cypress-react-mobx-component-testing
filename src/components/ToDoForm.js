@@ -4,8 +4,6 @@ import { inject, observer } from 'mobx-react';
 @inject('store')
 @observer
 class ToDoForm extends React.Component {
-    // const [item, setItem] = useState('');
-
     constructor(props) {
         super(props);
         this.state = {

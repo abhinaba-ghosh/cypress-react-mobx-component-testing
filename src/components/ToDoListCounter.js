@@ -4,8 +4,6 @@ import { observer, inject } from 'mobx-react';
 @inject('store')
 @observer
 class ToDoListCounter extends React.Component {
-    // const store = useContext(StoreContext);
-
     constructor(props) {
         super(props);
     }
