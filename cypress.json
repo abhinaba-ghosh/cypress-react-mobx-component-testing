@@ -8,7 +8,8 @@
     "env": {
         "cypress-react-selector": {
             "root": "#__cy_root"
-        }
+        },
+        "cypress-plugin-snapshots": {}
     },
     "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"]
 }

@@ -1,11 +1,28 @@
 const { startDevServer } = require('@cypress/webpack-dev-server');
 const path = require('path');
 const babelConfig = require('../../babel.config.js');
+const webpack = require('webpack');
+
+const { initPlugin } = require('cypress-plugin-snapshots/plugin');
 
 /** @type import("webpack").Configuration */
 const webpackConfig = {
     resolve: {
         extensions: ['.js', '.ts', '.jsx', '.tsx'],
+        fallback: {
+            fs: false,
+            tls: false,
+            net: false,
+            path: false,
+            zlib: false,
+            http: false,
+            https: false,
+            stream: false,
+            crypto: false,
+        },
+        alias: {
+            crypto: 'crypto-browserify',
+        },
     },
     mode: 'development',
     devtool: false,
@@ -62,15 +79,16 @@ const webpackConfig = {
             },
         ],
     },
+    plugins: [
+        // fix "process is not defined" error:
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+    ],
 };
 
 module.exports = (on, config) => {
-    // if (config.testingType !== 'component') {
-    //     throw Error(
-    //         `This is a component testing project. testingType should be 'component'. Received ${config.testingType}`
-    //     );
-    // }
-
+    initPlugin(on, config);
     on('dev-server:start', (options) => {
         return startDevServer({
             options,

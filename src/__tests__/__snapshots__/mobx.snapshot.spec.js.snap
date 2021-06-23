@@ -1,0 +1,5 @@
+exports[`MobX store snapshot tests > should snapshot test the mobx store #0`] =
+[
+  "name",
+  "items"
+];

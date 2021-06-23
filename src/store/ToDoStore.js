@@ -19,6 +19,14 @@ export class ToDoStore {
     }
 
     @computed
+    get getItemDetails() {
+        return {
+            name: 'store-item-object',
+            items: this.items,
+        };
+    }
+
+    @computed
     get itemsCount() {
         return this.items.length;
     }
