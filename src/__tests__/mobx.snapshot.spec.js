@@ -12,9 +12,9 @@ import { ToDoStore } from '../store/ToDoStore';
 
 describe('MobX store snapshot tests', () => {
     beforeEach(() => {
-        const _store = new ToDoStore();
+        const store = new ToDoStore();
         mount(
-            <Provider store={_store}>
+            <Provider store={store}>
                 <main>
                     <ToDoForm />
                     <ToDoList />
@@ -24,7 +24,7 @@ describe('MobX store snapshot tests', () => {
         );
 
         if (window.Cypress) {
-            window.store = _store;
+            window.store = store;
         }
     });
 

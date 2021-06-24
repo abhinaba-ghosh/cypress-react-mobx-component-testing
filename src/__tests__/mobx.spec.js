@@ -4,7 +4,6 @@
 
 import { mount } from '@cypress/react';
 import React from 'react';
-import ToDoForm from '../components/ToDoForm';
 import ToDoList from '../components/ToDoList';
 import ToDoListCounter from '../components/ToDoListCounter';
 import { Provider } from 'mobx-react';
@@ -16,7 +15,6 @@ describe('MobX store tests', () => {
         mount(
             <Provider store={_store}>
                 <main>
-                    <ToDoForm />
                     <ToDoList />
                     <ToDoListCounter />
                 </main>
@@ -29,8 +27,12 @@ describe('MobX store tests', () => {
     });
 
     it('should add item to mobx store', () => {
-        cy.window().its('store').invoke('addItem', 'Buy milk');
-        cy.get('ul').children().should('contains.text', 'Buy milk');
+        cy.window()
+            .its('store')
+            .invoke('addItem', 'Buy milk');
+        cy.get('ul')
+            .children()
+            .should('contains.text', 'Buy milk');
     });
 
     it('should inject items to mobx store manipulating items array', () => {
@@ -39,21 +41,36 @@ describe('MobX store tests', () => {
             .as('items')
             .get('@items')
             .then((item) => item.push('Buy milk'));
-        cy.get('ul').children().should('contains.text', 'Buy milk');
+        cy.get('ul')
+            .children()
+            .should('contains.text', 'Buy milk');
     });
 
     it('should delete an item from mobx store', () => {
-        cy.window().its('store').invoke('addItem', 'Buy milk');
-        cy.get('ul').children().should('contains.text', 'Buy milk');
+        cy.window()
+            .its('store')
+            .invoke('addItem', 'Buy milk');
+        cy.get('ul')
+            .children()
+            .should('contains.text', 'Buy milk');
 
-        cy.window().its('store').invoke('deleteItem', 'Buy milk');
+        cy.window()
+            .its('store')
+            .invoke('deleteItem', 'Buy milk');
         cy.get('h1').should('contains.text', 'No Tasks in hand');
     });
 
     it('should get real-time items count from mobx store', () => {
-        cy.window().its('store').invoke('addItem', 'Buy milk');
-        cy.window().its('store').invoke('addItem', 'Go shopping');
+        cy.window()
+            .its('store')
+            .invoke('addItem', 'Buy milk');
+        cy.window()
+            .its('store')
+            .invoke('addItem', 'Go shopping');
 
-        cy.window().its('store').its('itemsCount').should('eq', 2);
+        cy.window()
+            .its('store')
+            .its('itemsCount')
+            .should('eq', 2);
     });
 });

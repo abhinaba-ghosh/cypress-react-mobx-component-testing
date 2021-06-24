@@ -34,7 +34,7 @@ describe('ToDo App integration tests', () => {
         cy.get('ul').children().should('contains.text', 'Go shopping');
     });
 
-    it('should mark pending tasks to completed', () => {
+    it.only('should mark pending tasks to completed', () => {
         cy.get('input').type('Buy milk');
         cy.get('button').click();
         cy.get('button').contains('Mark Complete').click();
