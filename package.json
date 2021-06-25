@@ -1,5 +1,5 @@
 {
-    "name": "mobx-learning",
+    "name": "cypress-mobx-test",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
